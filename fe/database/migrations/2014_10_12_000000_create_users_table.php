@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('albums', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_album', 25);
-
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
-
-            // $table->primary('nama_album');
-            // $table->primary(['nama_album', 'nama_lagu']);
-            // $table->foreign('nama_lagu')->references('lagu')->on('lagus');
         });
     }
 
@@ -31,8 +30,7 @@ return new class extends Migration
      * @return void
      */
     public function down()
-    {      
-        // $table->dropForeign('album_nama_lagu_foreign');        
-        Schema::dropIfExists('albums');
+    {
+        Schema::dropIfExists('users');
     }
 };

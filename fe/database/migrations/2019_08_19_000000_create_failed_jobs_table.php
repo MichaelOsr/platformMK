@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lagus', function (Blueprint $table) {
-            $table->string('lagu', 255);
-            $table->string('artis', 255);
-            $table->string('thumbnail', 255);
-            $table->timestamps();
-
-            $table->primary('lagu');
+        Schema::create('failed_jobs', function (Blueprint $table) {
+            $table->id();
+            $table->string('uuid')->unique();
+            $table->text('connection');
+            $table->text('queue');
+            $table->longText('payload');
+            $table->longText('exception');
+            $table->timestamp('failed_at')->useCurrent();
         });
     }
 
@@ -30,7 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lagus');
-
+        Schema::dropIfExists('failed_jobs');
     }
 };

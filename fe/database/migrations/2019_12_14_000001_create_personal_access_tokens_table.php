@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('albums', function (Blueprint $table) {
+        Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_album', 25);
-
+            $table->morphs('tokenable');
+            $table->string('name');
+            $table->string('token', 64)->unique();
+            $table->text('abilities')->nullable();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
-
-            // $table->primary('nama_album');
-            // $table->primary(['nama_album', 'nama_lagu']);
-            // $table->foreign('nama_lagu')->references('lagu')->on('lagus');
         });
     }
 
@@ -31,8 +31,7 @@ return new class extends Migration
      * @return void
      */
     public function down()
-    {      
-        // $table->dropForeign('album_nama_lagu_foreign');        
-        Schema::dropIfExists('albums');
+    {
+        Schema::dropIfExists('personal_access_tokens');
     }
 };

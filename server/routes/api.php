@@ -28,7 +28,7 @@ Route::get('lagus/{nama}', 'App\Http\Controllers\LaguController@findLagu');
 Route::get('albums', 'App\Http\Controllers\AlbumController@index');
 Route::get('albums/{nama}', 'App\Http\Controllers\AlbumController@findAlbum');
 Route::post('albums/create', 'App\Http\Controllers\AlbumController@store');
-Route::delete('albums/delete/{nama}', 'App\Http\Controllers\AlbumController@deleteAlbum');
+Route::delete('albums/delete/{id}', 'App\Http\Controllers\AlbumController@deleteAlbum');
 Route::delete('albums/deleteLagu/{album}&{lagu}', 'App\Http\Controllers\AlbumController@deleteLagu');
 
 
