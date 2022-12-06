@@ -12,11 +12,11 @@
 
 <body class="bg-[#F9F9F9]">
 
-    <div class="mx-12 py-6 lg:grid lg:grid-cols-2 lg:justify-items-end gap-8">
+    <div class="mx-12 py-6 lg:grid lg:grid-cols-2 ">
         <div class="">
             <div class="flex items-center justify-between pt-6">
                 <h1 class="font-bold text-2xl">My Album Music</h1>
-                <div class="relative lg:hidden">
+                {{-- <div class="relative lg:hidden">
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -27,8 +27,7 @@
                     <input type="text" id="small-input"
                         class="block px-9 py-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Type here to search">
-                </div>
-
+                </div> --}}
             </div>
 
             <div class="mt-4">
@@ -126,8 +125,8 @@
                                 <div id="pause" class="hidden">
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                        viewBox="0 0 496.158 496.158"
-                                        style="enable-background:new 0 0 496.158 496.158;" xml:space="preserve">
+                                        viewBox="0 0 496.158 496.158" style="enable-background:new 0 0 496.158 496.158;"
+                                        xml:space="preserve">
                                         <path style="fill:#E5AA17;"
                                             d="M496.158,248.085c0-137.021-111.07-248.082-248.076-248.082C111.07,0.002,0,111.062,0,248.085
                     c0,137.002,111.07,248.071,248.083,248.071C385.088,496.155,496.158,385.086,496.158,248.085z" />
@@ -190,35 +189,20 @@
 
 
         <div class="mt-4">
-            <h1 class="font-semibold text-lg">Recently Played</h1>
-            <div>
-                <div class="mb-2 border shadow-md rounded-xl px-5 py-2 flex items-center w-[371px]">
-                    <img class="w-16 h-16 rounded-full" src="https://img.youtube.com/vi/6Pei_OGDNqc/hqdefault.jpg"
-                        alt="">
-                    <div class="w-1/2 ml-4">
-                        <h5 class="font-semibold">Album 1</h5>
-                    </div>
-                    <button type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2 focus:outline-none">Play</button>
-                </div>
-
-                <div class="border shadow-md rounded-xl px-5 py-2 flex items-center w-[371px]">
-                    <img class="w-16 h-16 rounded-full" src="/img/artis.jpg" alt="">
-                    <div class="w-1/2 ml-4">
-                        <h5 class="font-semibold">Album 2</h5>
-                    </div>
-                    <button type="button"
-                        class="py-2 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200">Play</button>
-                </div>
-
-                <div class="mb-2 border shadow-md rounded-xl px-5 py-2 flex items-center w-[371px]">
-                    <img class="w-16 h-16 rounded-full" src="/img/artis.jpg" alt="">
-                    <div class="w-1/2 ml-4">
-                        <h5 class="font-semibold">Album 3</h5>
-                    </div>
-                    <button type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2 focus:outline-none">Play</button>
-                </div>
+            <h1 class="font-semibold text-lg">Daftar Lagu</h1>
+            <div class="border-b-2 flex items-center justify-between p-4 w-[30rem]">
+				<div class="flex items-center justify-start gap-3">
+					<img class="w-16 h-16 rounded-full"
+						src="https://i.ytimg.com/vi/lEi_XBg2Fpk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDd-GJXEGE5ax9lDBOIcqSvTm7IHg"
+						alt="">
+					<p class="font-medium">All We Know</p>
+				</div>
+				<div>
+					<button
+						class="block text-white bg-blue-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
+						Add
+					</button>
+				</div>
             </div>
         </div>
 
@@ -393,7 +377,7 @@
 
 
     <script src="/js/index.js"></script>
-    
+
     @vite('resources/js/app.js')
     <script>
         function deleteAlbums(id) {
