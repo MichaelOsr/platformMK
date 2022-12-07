@@ -14,12 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('albums', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
             $table->string('nama_album', 25);
+            $table->string('cover', 255)->nullable();
+
 
             $table->timestamps();
 
-            // $table->primary('nama_album');
+            $table->primary('nama_album');
             // $table->primary(['nama_album', 'nama_lagu']);
             // $table->foreign('nama_lagu')->references('lagu')->on('lagus');
         });

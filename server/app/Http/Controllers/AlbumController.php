@@ -31,10 +31,10 @@ class AlbumController extends Controller
         ],200);
     }
 
-    public function deleteAlbum($id){
-        $check = Album::firstWhere('id', $id);
+    public function deleteAlbum($nama){
+        $check = Album::firstWhere('nama_album', $nama);
         if($check){
-            $album = Album::where('id', $id);
+            $album = Album::where('nama_album', $nama);
             $album->delete();
 
             return response([
@@ -66,4 +66,14 @@ class AlbumController extends Controller
             ]);
         }
     }
+
+    public function cover($namaAlbum, $namaFile){
+        Album::where('nama_album', $namaAlbum)
+      ->update(['cover' => $namaFile]);
+      return response([
+        "status"=>'Ok',
+        "message"=>'Data updated'
+    ]);
+    }
+
 }

@@ -36,10 +36,17 @@
 
                     @foreach ($dataAlbum as $album)
                         <div>
-                            <button data-modal-toggle="editAlbumModal">
+                            <button onclick="modalroute('{{$album['nama_album']}}')" data-modal-toggle="editAlbumModal">
+                                @if ($album['cover'])
                                 <img class="rounded-xl hover:brightness-50"
-                                    src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
+                                    src="{{asset('storage/app/cover/test.png')}}"
                                     alt="">
+                                    
+                                @else
+                                <img class="rounded-xl hover:brightness-50"
+                                src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
+                                alt="">
+                                @endif
                             </button>
                             <div>
                                 <p class="font-bold">{{ $album['nama_album'] }}</p>
@@ -59,7 +66,7 @@
                                         aria-labelledby="dropdownDefault">
                                         <li>
                                             <button data-modal-toggle="delete-modal"
-                                            onclick="deleteAlbums({{ $album['id'] }})"
+                                            onclick="deleteAlbums('{{ $album['nama_album'] }}')"
                                             class="w-full block py-2 px-4 hover:bg-gray-100 text-red-600">Delete Album</button>
                                         </li>
                                     </ul>
@@ -67,6 +74,7 @@
 
                             </div>
                         </div>
+                        @endforeach
                         {{-- <div>
                             <img class="rounded-xl"
                                 src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
@@ -86,7 +94,6 @@
                                 </button>
                             </div>
                         </div> --}}
-                    @endforeach
                     <div>
                         <!-- Modal toggle -->
                         <button
@@ -261,6 +268,8 @@
     <div id="editAlbumModal" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
         <div class="relative w-full h-full max-w-2xl md:h-auto">
+            <form id="cover" action="" method="POST" enctype="multipart/form-data">
+                @csrf
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow ">
                 <!-- Modal header -->
@@ -283,7 +292,9 @@
                 <!-- Modal body -->
                 <div class="flex justify-center mt-3">
 
-                    <div class="flex items-center justify-center w-full">
+                    
+
+                    {{-- <div class="flex items-center justify-center w-full">
                         <label for="dropzone-file"
                             class="flex flex-col items-center justify-center w-1/2 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -297,10 +308,10 @@
                                         class="font-semibold">Klik untuk ubah cover album</span> atau drag and drop</p>
                                 <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, JPEG</p>
                             </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
+                            <input name="cover" id="dropzone-file" type="file" class="hidden" />
                         </label>
-                    </div>
-
+                    </div> --}}
+                    <input type="file" name="cover" id="">
                     {{-- <img class="rounded-xl"
                         src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
                         alt=""> --}}
@@ -348,11 +359,12 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-toggle="editAlbumModal" type="button"
+                    <button type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                         Done</button>
                 </div>
             </div>
+        </form>
         </div>
     </div>
     {{-- END Modal edit album --}}
@@ -484,8 +496,11 @@
 
     @vite('resources/js/app.js')
     <script>
-        function deleteAlbums(id) {
-            document.getElementById("deleteBtn").href = "/deleteAlbum/" + String(id);
+        function deleteAlbums(nama) {
+            document.getElementById("deleteBtn").href = "/deleteAlbum/" + nama;
+        }
+        function modalroute(nama){
+            document.getElementById("cover").action = "/changeCover/" + nama;
         }
     </script>
 </body>
