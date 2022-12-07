@@ -32,7 +32,7 @@ class AlbumController extends Controller
             // $filename= $file->getClientOriginalName();
             $filename= date('YmdHi').$file->getClientOriginalName();
             // $file-> move(public_path('public/Cover'), $filename);
-            $path = $request->file('cover')->storeAs('cover', $filename);
+            $path = $request->file('cover')->storeAs('public/cover', $filename);
             $data = Http::put('http://127.0.0.1:8001/api/albums/cover/'.$nama."&".$filename);
         }
         return redirect('/');

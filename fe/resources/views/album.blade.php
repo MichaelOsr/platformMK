@@ -39,7 +39,7 @@
                             <button onclick="modalroute('{{$album['nama_album']}}')" data-modal-toggle="editAlbumModal">
                                 @if ($album['cover'])
                                 <img class="rounded-xl hover:brightness-50"
-                                    src="{{asset('storage/app/cover/test.png')}}"
+                                    src="{{asset('storage/cover/'.$album['cover'])}}"
                                     alt="">
                                     
                                 @else
