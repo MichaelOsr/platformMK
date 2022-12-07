@@ -31,16 +31,47 @@
             </div>
 
             <div class="mt-4">
-                <h1 class="font-bold text-lg">Terakhir Diputar</h1>
+                <h1 class="font-bold text-lg">Album Anda</h1>
                 <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 w-fit">
 
                     @foreach ($dataAlbum as $album)
                         <div>
+                            <button data-modal-toggle="editAlbumModal">
+                                <img class="rounded-xl hover:brightness-50"
+                                    src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
+                                    alt="">
+                            </button>
+                            <div>
+                                <p class="font-bold">{{ $album['nama_album'] }}</p>
+
+                                <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center inline-flex items-center"
+                                    type="button">Menu <svg class="ml-2 w-4 h-4" aria-hidden="true"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg></button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdown"
+                                    class="hidden z-10 w-32 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                        aria-labelledby="dropdownDefault">
+                                        <li>
+                                            <button data-modal-toggle="delete-modal"
+                                            onclick="deleteAlbums({{ $album['id'] }})"
+                                            class="w-full block py-2 px-4 hover:bg-gray-100 text-red-600">Delete Album</button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        {{-- <div>
                             <img class="rounded-xl"
                                 src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
                                 alt="">
                             <p class="font-bold">{{ $album['nama_album'] }}</p>
-                            {{-- <p class="text-sm text-gray-500">The Chainsmokers</p> --}}
                             <div class="flex gap-2">
                                 <button
                                     class="block text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center"
@@ -54,7 +85,7 @@
                                     Edit
                                 </button>
                             </div>
-                        </div>
+                        </div> --}}
                     @endforeach
                     <div>
                         <!-- Modal toggle -->
@@ -125,8 +156,8 @@
                                 <div id="pause" class="hidden">
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                        viewBox="0 0 496.158 496.158" style="enable-background:new 0 0 496.158 496.158;"
-                                        xml:space="preserve">
+                                        viewBox="0 0 496.158 496.158"
+                                        style="enable-background:new 0 0 496.158 496.158;" xml:space="preserve">
                                         <path style="fill:#E5AA17;"
                                             d="M496.158,248.085c0-137.021-111.07-248.082-248.076-248.082C111.07,0.002,0,111.062,0,248.085
                     c0,137.002,111.07,248.071,248.083,248.071C385.088,496.155,496.158,385.086,496.158,248.085z" />
@@ -235,7 +266,7 @@
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t ">
                     <h3 class="text-xl font-semibold text-gray-900 ">
-                        Edit Album
+                        Nama Album
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
@@ -277,14 +308,18 @@
                 <p class="font-bold text-center text-xl mt-2">Judul Album</p>
                 <div class="p-6 ">
                     <p class="text-lg font-normal m-0">List Lagu</p>
-                    <div class="border-b-4 p-4 flex items-center justify-between">
+                    <div class="border-b-2 p-4 flex items-center justify-between">
                         <div class="flex items-center justify-start gap-3">
                             <img class="w-16 h-16 rounded-full"
                                 src="https://i.ytimg.com/vi/lEi_XBg2Fpk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDd-GJXEGE5ax9lDBOIcqSvTm7IHg"
                                 alt="">
                             <p class="font-semibold">All We Know</p>
                         </div>
-                        <div>
+                        <div class="flex gap-2">
+                            <button
+                                class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
+                                Play
+                            </button>
                             <button
                                 class="block text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
                                 Remove
@@ -292,14 +327,18 @@
                         </div>
                     </div>
 
-                    <div class="border-b-4 p-4 flex items-center justify-between">
+                    <div class="border-b-2 p-4 flex items-center justify-between">
                         <div class="flex items-center justify-start gap-3">
                             <img class="w-16 h-16 rounded-full"
                                 src="https://i.ytimg.com/vi/lEi_XBg2Fpk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDd-GJXEGE5ax9lDBOIcqSvTm7IHg"
                                 alt="">
                             <p class="font-semibold">All We Know</p>
                         </div>
-                        <div>
+                        <div class="flex gap-2">
+                            <button
+                                class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
+                                Play
+                            </button>
                             <button
                                 class="block text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
                                 Remove
@@ -393,7 +432,7 @@
 
 
 
-    {{-- Modal Add Lagu Ke Almbum --}}
+    {{-- Modal Add Lagu Ke Album --}}
     <div id="add-to-album-modal" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
         <div class="relative w-full h-full max-w-md md:h-auto">
@@ -437,7 +476,7 @@
             </div>
         </div>
     </div>
-    {{-- Modal Add Lagu Ke Almbum --}}
+    {{-- Modal Add Lagu Ke Album --}}
 
 
 
