@@ -8,6 +8,8 @@
 
     <title>Music Player</title>
     @vite('resources/css/app.css')
+    <script src="https://code.jquery.com/jquery-3.6.2.js" integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4="
+        crossorigin="anonymous"></script>
 </head>
 
 <body class="bg-[#F9F9F9]">
@@ -51,7 +53,8 @@
                             <div>
                                 <p class="font-bold">{{ $album['nama_album'] }}</p>
 
-                                <button id="dropdownDefault{{$album['nama_album']}}" data-dropdown-toggle="dropdown{{$album['nama_album']}}"
+                                <button id="dropdownDefault{{ $album['nama_album'] }}"
+                                    data-dropdown-toggle="dropdown{{ $album['nama_album'] }}"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center inline-flex items-center"
                                     type="button">Menu <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none"
                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -59,10 +62,10 @@
                                             d="M19 9l-7 7-7-7"></path>
                                     </svg></button>
                                 <!-- Dropdown menu -->
-                                <div id="dropdown{{$album['nama_album']}}"
+                                <div id="dropdown{{ $album['nama_album'] }}"
                                     class="hidden z-10 w-32 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownDefault{{$album['nama_album']}}">
+                                        aria-labelledby="dropdownDefault{{ $album['nama_album'] }}">
                                         <li>
                                             <button data-modal-toggle="delete-modal"
                                                 onclick="deleteAlbums('{{ $album['nama_album'] }}')"
@@ -229,7 +232,8 @@
         <div class="mt-4">
             <h1 class="font-semibold text-lg">Daftar Lagu</h1>
             <form class="flex items-center w-[30rem] my-3">
-                <label for="simple-search" class="sr-only">Search</label>
+                {{-- @csrf --}}
+                <label for="search" class="sr-only">Search</label>
                 <div class="relative w-full">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
@@ -239,12 +243,16 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <input type="text" id="simple-search"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <input type="text" id="search" name="search"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 "
                         placeholder="Search" required>
                 </div>
             </form>
+            <div id="Content" class="searchData">
+                {{-- <p>hehe</p> --}}
+            </div>
             @foreach ($dataLagu as $lagu)
+            <div class="allData">
                 <div class="border-b-2 flex items-center justify-between p-4 w-[30rem]">
                     <div class="flex items-center justify-start gap-3">
                         <img class="w-16 h-16 rounded-full" src="{{ $lagu['thumbnail'] }}" alt="">
@@ -252,12 +260,13 @@
                         <p class="font-light">{{ $lagu['artis'] }}</p>
                     </div>
                     <div>
-                        <button onclick="saveLagu('{{$lagu['lagu']}}')" data-modal-toggle="add-to-album-modal"
+                        <button onclick="saveLagu('{{ $lagu['lagu'] }}')" data-modal-toggle="add-to-album-modal"
                             class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
                             Add
                         </button>
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
 
@@ -270,7 +279,8 @@
         <div id="editAlbumModal{{ $data['nama_album'] }}" tabindex="-1" aria-hidden="true"
             class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
             <div class="relative w-full h-full max-w-2xl md:h-auto">
-                <form id="cover" action="/changeCover/{{$data['nama_album']}}" method="POST" enctype="multipart/form-data">
+                <form id="cover" action="/changeCover/{{ $data['nama_album'] }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <!-- Modal content -->
                     <div class="relative bg-white rounded-lg shadow ">
@@ -333,11 +343,13 @@
                                                 <p>{{ $list['artis'] }}</p>
                                             </div>
                                             <div class="flex gap-2">
-                                                <button type="button" onclick="play('{{$list['nama_lagu']}}', '{{$list['thumbnail']}}'); playMusic();"
+                                                <button type="button"
+                                                    onclick="play('{{ $list['nama_lagu'] }}', '{{ $list['thumbnail'] }}'); playMusic();"
                                                     class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
                                                     Play
                                                 </button>
-                                                <button onclick="deleteLagu('{{$list['nama_album']}}', '{{$list['nama_lagu']}}')"
+                                                <button
+                                                    onclick="deleteLagu('{{ $list['nama_album'] }}', '{{ $list['nama_lagu'] }}')"
                                                     class="block text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
                                                     Remove
                                                 </button>
@@ -485,7 +497,7 @@
                     <ul class="my-4 space-y-3">
                         @foreach ($dataAlbum as $album)
                             <li>
-                                <button onclick="addLagu('{{$album['nama_album']}}')"
+                                <button onclick="addLagu('{{ $album['nama_album'] }}')"
                                     class="w-full flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600">
                                     {{ $album['nama_album'] }}
                                 </button>
@@ -511,6 +523,7 @@
     @vite('resources/js/app.js')
     <script>
         var namaLagu = "";
+
         function deleteAlbums(nama) {
             document.getElementById("deleteBtn").href = "/deleteAlbum/" + nama;
         }
@@ -519,23 +532,70 @@
             document.getElementById("cover").action = "/changeCover/" + nama;
         }
 
-        function saveLagu(namaLagu){
+        function saveLagu(namaLagu) {
             this.namaLagu = namaLagu;
         }
 
-        function addLagu(namaAlbum){
-            window.location = "/addLagu/"+namaAlbum+"&"+namaLagu;
+        function addLagu(namaAlbum) {
+            window.location = "/addLagu/" + namaAlbum + "&" + namaLagu;
         }
 
-        function deleteLagu(namaAlbum, namaLagu){
-            window.location = "/deleteLagu/"+namaAlbum+"&"+namaLagu;
+        function deleteLagu(namaAlbum, namaLagu) {
+            window.location = "/deleteLagu/" + namaAlbum + "&" + namaLagu;
         }
 
-        function play(namaLagu, thumbnail){
-            document.getElementById("audio").src = "storage/audios/"+namaLagu+".mp3";
+        function play(namaLagu, thumbnail) {
+            document.getElementById("audio").src = "storage/audios/" + namaLagu + ".mp3";
             document.getElementById("imgMusic").src = thumbnail;
             document.getElementById("judul").innerHTML = namaLagu;
         }
+
+
+        $('#search').on('keyup', function() {
+            $value = $(this).val()
+
+            if($value) {
+                $('.allData').hide()
+                $('.searchData').show()
+            } else {
+                $('.allData').show()
+                $('.searchData').hide()
+            }
+
+            $.ajax({
+                type: 'get',
+                url: `/search/${$value}`,
+                // data: $value,
+                success: function(data) {
+                    // console.log(data)
+                    $('#Content').html(data)
+                }
+            })
+        })
+
+
+        // let form = document.getElementById('search')
+        // form.addEventListener('beforeInput', e => {
+        //     const formdata = new FormData(form)
+        //     let search = formdata.get('search')
+        //     let url = ""+search
+
+        //     fetch(url)
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             let i;
+        //             let result = ""
+        //             if(data.length == 0) {
+        //                 result += 'Data Kosong'
+        //             }
+
+        //             for(i = 0; i < data.length; i++) {
+        //                 let lagu = data[i]
+        //                 result += 'helo'
+        //             }
+        //             document.getElementById('result').innerHTML = result
+        //         }).catch((err) => console.log(err))
+        // })
     </script>
 </body>
 

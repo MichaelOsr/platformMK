@@ -24,6 +24,8 @@ Route::post('/changeCover/{nama}', [AlbumController::class, 'cover']);
 Route::get('/listLagu/{nama}', [AlbumController::class, 'getListLagu']);
 Route::get('/addLagu/{namaAlbum}&{namaLagu}', [AlbumController::class, 'addLagu']);
 Route::get('/deleteLagu/{namaAlbum}&{namaLagu}', [AlbumController::class, 'deleteLagu']);
+Route::get('/search/{lagu}',[AlbumController::class, 'search'] );
+// Route::get('/search/{lagu}',[AlbumController::class, 'search'] );
 
 
 

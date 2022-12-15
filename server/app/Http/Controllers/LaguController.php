@@ -13,6 +13,6 @@ class LaguController extends Controller
     }
 
     public function findLagu($nama) {
-        return Lagu::where('lagu', $nama) -> get();
+        return Lagu::where('lagu', 'like', "%".$nama."%") -> get();
     }
 }
