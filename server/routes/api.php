@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LaguController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\LaguAlbumController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +31,13 @@ Route::get('albums', 'App\Http\Controllers\AlbumController@index');
 Route::get('albums/{nama}', 'App\Http\Controllers\AlbumController@findAlbum');
 Route::post('albums/create', 'App\Http\Controllers\AlbumController@store');
 Route::delete('albums/delete/{nama}', 'App\Http\Controllers\AlbumController@deleteAlbum');
-Route::delete('albums/deleteLagu/{album}&{lagu}', 'App\Http\Controllers\AlbumController@deleteLagu');
 Route::put('albums/cover/{namaAlbum}&{namaFile}', 'App\Http\Controllers\AlbumController@cover');
 
+
+//laguAlbum
+Route::get('listLagu', 'App\Http\Controllers\LaguAlbumController@index');
+Route::post('listLagu/create/{namaAlbum}&{namaLagu}', 'App\Http\Controllers\LaguAlbumController@addLagu');
+Route::delete('deleteLagu/{album}&{lagu}', 'App\Http\Controllers\LaguAlbumController@deleteLagu');
 
 
 

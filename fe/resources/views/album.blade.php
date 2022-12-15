@@ -36,46 +36,46 @@
 
                     @foreach ($dataAlbum as $album)
                         <div>
-                            <button onclick="modalroute('{{$album['nama_album']}}')" data-modal-toggle="editAlbumModal">
+                            <button href="listLagu/{{ $album['nama_album'] }}"
+                                onclick="modalroute('{{ $album['nama_album'] }}')"
+                                data-modal-toggle="editAlbumModal{{ $album['nama_album'] }}">
                                 @if ($album['cover'])
-                                <img class="rounded-xl hover:brightness-50"
-                                    src="{{asset('storage/cover/'.$album['cover'])}}"
-                                    alt="">
-                                    
+                                    <img class="rounded-xl hover:brightness-50"
+                                        src="{{ asset('storage/cover/' . $album['cover']) }}" alt="">
                                 @else
-                                <img class="rounded-xl hover:brightness-50"
-                                src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
-                                alt="">
+                                    <img class="rounded-xl hover:brightness-50"
+                                        src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
+                                        alt="">
                                 @endif
                             </button>
                             <div>
                                 <p class="font-bold">{{ $album['nama_album'] }}</p>
 
-                                <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                                <button id="dropdownDefault{{$album['nama_album']}}" data-dropdown-toggle="dropdown{{$album['nama_album']}}"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 text-center inline-flex items-center"
-                                    type="button">Menu <svg class="ml-2 w-4 h-4" aria-hidden="true"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                    type="button">Menu <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 9l-7 7-7-7"></path>
                                     </svg></button>
                                 <!-- Dropdown menu -->
-                                <div id="dropdown"
+                                <div id="dropdown{{$album['nama_album']}}"
                                     class="hidden z-10 w-32 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownDefault">
+                                        aria-labelledby="dropdownDefault{{$album['nama_album']}}">
                                         <li>
                                             <button data-modal-toggle="delete-modal"
-                                            onclick="deleteAlbums('{{ $album['nama_album'] }}')"
-                                            class="w-full block py-2 px-4 hover:bg-gray-100 text-red-600">Delete Album</button>
+                                                onclick="deleteAlbums('{{ $album['nama_album'] }}')"
+                                                class="w-full block py-2 px-4 hover:bg-gray-100 text-red-600">Delete
+                                                Album</button>
                                         </li>
                                     </ul>
                                 </div>
 
                             </div>
                         </div>
-                        @endforeach
-                        {{-- <div>
+                    @endforeach
+                    {{-- <div>
                             <img class="rounded-xl"
                                 src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
                                 alt="">
@@ -113,8 +113,8 @@
                     <div data-popover-target="popover-top" data-popover-placement="top"
                         class="border shadow rounded-xl w-48 flex flex-col items-center py-4">
 
-                        <h2 class="mb-4 font-bold text-xl">All We Know</h2>
-                        <audio id="audio" src="/audios/Fujii Kaze Shinunoga E Wa (128kbps).mp3">
+                        <h2 id="judul" class="mb-4 font-bold text-xl">All We Know</h2>
+                        <audio id="audio" src="storage/audios/All We Know.mp3">
 
                         </audio>
                         <img id="imgMusic" class="w-40 h-40 rounded-full object-cover animate-spin-slow paused"
@@ -244,20 +244,21 @@
                         placeholder="Search" required>
                 </div>
             </form>
-            <div class="border-b-2 flex items-center justify-between p-4 w-[30rem]">
-                <div class="flex items-center justify-start gap-3">
-                    <img class="w-16 h-16 rounded-full"
-                        src="https://i.ytimg.com/vi/lEi_XBg2Fpk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDd-GJXEGE5ax9lDBOIcqSvTm7IHg"
-                        alt="">
-                    <p class="font-medium">All We Know</p>
+            @foreach ($dataLagu as $lagu)
+                <div class="border-b-2 flex items-center justify-between p-4 w-[30rem]">
+                    <div class="flex items-center justify-start gap-3">
+                        <img class="w-16 h-16 rounded-full" src="{{ $lagu['thumbnail'] }}" alt="">
+                        <p class="font-medium">{{ $lagu['lagu'] }}</p>
+                        <p class="font-light">{{ $lagu['artis'] }}</p>
+                    </div>
+                    <div>
+                        <button onclick="saveLagu('{{$lagu['lagu']}}')" data-modal-toggle="add-to-album-modal"
+                            class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
+                            Add
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <button data-modal-toggle="add-to-album-modal"
-                        class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
-                        Add
-                    </button>
-                </div>
-            </div>
+            @endforeach
         </div>
 
 
@@ -265,108 +266,119 @@
     </div>
 
     {{-- Modal edit album --}}
-    <div id="editAlbumModal" tabindex="-1" aria-hidden="true"
-        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-        <div class="relative w-full h-full max-w-2xl md:h-auto">
-            <form id="cover" action="" method="POST" enctype="multipart/form-data">
-                @csrf
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow ">
-                <!-- Modal header -->
-                <div class="flex items-start justify-between p-4 border-b rounded-t ">
-                    <h3 class="text-xl font-semibold text-gray-900 ">
-                        Nama Album
-                    </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
-                        data-modal-toggle="editAlbumModal">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="flex justify-center mt-3">
+    @foreach ($dataAlbum as $data)
+        <div id="editAlbumModal{{ $data['nama_album'] }}" tabindex="-1" aria-hidden="true"
+            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+            <div class="relative w-full h-full max-w-2xl md:h-auto">
+                <form id="cover" action="/changeCover/{{$data['nama_album']}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow ">
+                        <!-- Modal header -->
+                        <div class="flex items-start justify-between p-4 border-b rounded-t ">
+                            <h3 class="text-xl font-semibold text-gray-900 ">
+                                {{ $data['nama_album'] }}
+                            </h3>
+                            <button type="button"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
+                                data-modal-toggle="editAlbumModal{{ $data['nama_album'] }}">
+                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="flex justify-center mt-3">
 
-                    
 
-                    {{-- <div class="flex items-center justify-center w-full">
-                        <label for="dropzone-file"
+
+                            {{-- <div class="flex items-center justify-center w-full">
+                            <label for="dropzone-file"
                             class="flex flex-col items-center justify-center w-1/2 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                    </path>
-                                </svg>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                        class="font-semibold">Klik untuk ubah cover album</span> atau drag and drop</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, JPEG</p>
-                            </div>
-                            <input name="cover" id="dropzone-file" type="file" class="hidden" />
-                        </label>
-                    </div> --}}
-                    <input type="file" name="cover" id="">
-                    {{-- <img class="rounded-xl"
-                        src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
-                        alt=""> --}}
-                </div>
-                <p class="font-bold text-center text-xl mt-2">Judul Album</p>
-                <div class="p-6 ">
-                    <p class="text-lg font-normal m-0">List Lagu</p>
-                    <div class="border-b-2 p-4 flex items-center justify-between">
-                        <div class="flex items-center justify-start gap-3">
-                            <img class="w-16 h-16 rounded-full"
-                                src="https://i.ytimg.com/vi/lEi_XBg2Fpk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDd-GJXEGE5ax9lDBOIcqSvTm7IHg"
-                                alt="">
-                            <p class="font-semibold">All We Know</p>
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                            </path>
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                            class="font-semibold">Klik untuk ubah cover album</span> atau drag and drop</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, JPEG</p>
                         </div>
-                        <div class="flex gap-2">
-                            <button
-                                class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
-                                Play
-                            </button>
-                            <button
-                                class="block text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
-                                Remove
-                            </button>
+                        <input name="cover" id="dropzone-file" type="file" class="hidden" />
+                    </label>
+                </div> --}}
+                            <input type="file" name="cover" id="">
+                            {{-- <img class="rounded-xl"
+                src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
+                alt=""> --}}
                         </div>
-                    </div>
+                        <p class="font-bold text-center text-xl mt-2">{{ $data['nama_album'] }}</p>
+                        <div class="p-6 ">
+                            <p class="text-lg font-normal m-0">List Lagu</p>
+                            @foreach ($dataList as $list)
+                                @if ($data['nama_album'] == $list['nama_album'])
+                                    @if ($list['nama_lagu'])
+                                        <div class="border-b-2 p-4 flex items-center justify-between">
 
-                    <div class="border-b-2 p-4 flex items-center justify-between">
+                                            <div class="flex items-center justify-start gap-3">
+                                                <img class="w-16 h-16 rounded-full" src="{{ $list['thumbnail'] }}"
+                                                    alt="">
+                                                <p class="font-semibold">{{ $list['nama_lagu'] }}</p>
+                                                <p>{{ $list['artis'] }}</p>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button type="button" onclick="play('{{$list['nama_lagu']}}', '{{$list['thumbnail']}}'); playMusic();"
+                                                    class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
+                                                    Play
+                                                </button>
+                                                <button onclick="deleteLagu('{{$list['nama_album']}}', '{{$list['nama_lagu']}}')"
+                                                    class="block text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
+                            @endforeach
+
+                            {{-- <div class="border-b-2 p-4 flex items-center justify-between">
                         <div class="flex items-center justify-start gap-3">
                             <img class="w-16 h-16 rounded-full"
-                                src="https://i.ytimg.com/vi/lEi_XBg2Fpk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDd-GJXEGE5ax9lDBOIcqSvTm7IHg"
-                                alt="">
+                            src="https://i.ytimg.com/vi/lEi_XBg2Fpk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDd-GJXEGE5ax9lDBOIcqSvTm7IHg"
+                            alt="">
                             <p class="font-semibold">All We Know</p>
                         </div>
                         <div class="flex gap-2">
                             <button
-                                class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
-                                Play
-                            </button>
-                            <button
+                                    class="block text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
+                                    Play
+                                </button>
+                                <button
                                 class="block text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center">
                                 Remove
                             </button>
                         </div>
+                    </div> --}}
+
+                        </div>
+                        <!-- Modal footer -->
+                        <div
+                            class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <button type="submit"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                                Done</button>
+                        </div>
                     </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button type="submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                        Done</button>
-                </div>
+                </form>
             </div>
-        </form>
         </div>
-    </div>
+    @endforeach
     {{-- END Modal edit album --}}
 
 
@@ -471,18 +483,20 @@
                 <div class="p-6">
                     <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Berikut daftar album anda</p>
                     <ul class="my-4 space-y-3">
-                        <li>
-                            <button href="#"
-                                class="w-full flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600">
-                                Album 1
-                            </button>
-                        </li>
-                        <li>
+                        @foreach ($dataAlbum as $album)
+                            <li>
+                                <button onclick="addLagu('{{$album['nama_album']}}')"
+                                    class="w-full flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600">
+                                    {{ $album['nama_album'] }}
+                                </button>
+                            </li>
+                        @endforeach
+                        {{-- <li>
                             <button href="#"
                                 class="w-full flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600">
                                 Album 2
                             </button>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -496,11 +510,31 @@
 
     @vite('resources/js/app.js')
     <script>
+        var namaLagu = "";
         function deleteAlbums(nama) {
             document.getElementById("deleteBtn").href = "/deleteAlbum/" + nama;
         }
-        function modalroute(nama){
+
+        function modalroute(nama) {
             document.getElementById("cover").action = "/changeCover/" + nama;
+        }
+
+        function saveLagu(namaLagu){
+            this.namaLagu = namaLagu;
+        }
+
+        function addLagu(namaAlbum){
+            window.location = "/addLagu/"+namaAlbum+"&"+namaLagu;
+        }
+
+        function deleteLagu(namaAlbum, namaLagu){
+            window.location = "/deleteLagu/"+namaAlbum+"&"+namaLagu;
+        }
+
+        function play(namaLagu, thumbnail){
+            document.getElementById("audio").src = "storage/audios/"+namaLagu+".mp3";
+            document.getElementById("imgMusic").src = thumbnail;
+            document.getElementById("judul").innerHTML = namaLagu;
         }
     </script>
 </body>

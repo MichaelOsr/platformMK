@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\Http;
 
 class AlbumController extends Controller
 {
-    public function getAlbum(){
-        $data = Http::get('http://127.0.0.1:8001/api/albums/')->json();
-        return view('album',['dataAlbum'=>$data]);
+    public function index(){
+        $dataAlbum = Http::get('http://127.0.0.1:8001/api/albums/')->json();
+        $dataLagu = Http::get('http://127.0.0.1:8001/api/lagus/')->json();
+        $dataList = Http::get('http://127.0.0.1:8001/api/listLagu')->json();
+
+
+        return view('album',['dataAlbum'=>$dataAlbum, 'dataLagu'=>$dataLagu, 'dataList' => $dataList]);
     }
 
     public function createAlbum(Request $request){
@@ -37,4 +41,24 @@ class AlbumController extends Controller
         }
         return redirect('/');
     }
+
+    public function getListLagu($namaAlbum){
+        $dataList = Http::get('http://127.0.0.1:8001/api/listLagu/'.$namaAlbum)->json();
+
+        return $dataList;
+        
+    }
+
+    public function addLagu($namaAlbum, $namaLagu){
+        $data = Http::post('http://127.0.0.1:8001/api/listLagu/create/'.$namaAlbum.'&'.$namaLagu);
+
+        return redirect('/');
+    }
+
+    public function deleteLagu($namaAlbum, $namaLagu){
+        $data = Http::delete('http://127.0.0.1:8001/api/deleteLagu/'.$namaAlbum.'&'.$namaLagu);
+
+        return redirect('/');
+    }
+
 }

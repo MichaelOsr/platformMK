@@ -17,10 +17,16 @@ use App\Http\Controllers\AlbumController;
 
 // Route::get('/', "App/Http/Controllers/AlbumController@getAlbum");
 
-Route::get('/', [AlbumController::class, 'getAlbum']);
+Route::get('/', [AlbumController::class, 'index']);
 Route::post('/newAlbum', [AlbumController::class, 'createAlbum']);
 Route::get('/deleteAlbum/{nama}', [AlbumController::class, 'deleteAlbum']);
 Route::post('/changeCover/{nama}', [AlbumController::class, 'cover']);
+Route::get('/listLagu/{nama}', [AlbumController::class, 'getListLagu']);
+Route::get('/addLagu/{namaAlbum}&{namaLagu}', [AlbumController::class, 'addLagu']);
+Route::get('/deleteLagu/{namaAlbum}&{namaLagu}', [AlbumController::class, 'deleteLagu']);
+
+
+
 
 
 

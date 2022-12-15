@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Album;
 use Carbon\Carbon;
+use App\Models\laguAlbum;
+
 
 class AlbumController extends Controller
 {
@@ -34,8 +36,12 @@ class AlbumController extends Controller
     public function deleteAlbum($nama){
         $check = Album::firstWhere('nama_album', $nama);
         if($check){
+            $listLagu = laguAlbum::where('nama_album', $nama);
+            $listLagu->delete();
+
             $album = Album::where('nama_album', $nama);
             $album->delete();
+            
 
             return response([
                 "status"=>'Ok',
