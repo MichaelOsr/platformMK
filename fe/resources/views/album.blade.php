@@ -14,7 +14,8 @@
 
 <body class="bg-[#F9F9F9]">
 
-    <div class="mx-12 py-6 lg:grid lg:grid-cols-2 ">
+    {{-- <div class="mx-12 py-6 lg:grid lg:grid-cols-2 "> --}}
+    <div class="mx-12 py-6 lg:flex lg:justify-center gap-10">
         <div class="">
             <div class="flex items-center justify-between pt-6">
                 <h1 class="font-bold text-2xl">My Album Music</h1>
@@ -42,10 +43,10 @@
                                 onclick="modalroute('{{ $album['nama_album'] }}')"
                                 data-modal-toggle="editAlbumModal{{ $album['nama_album'] }}">
                                 @if ($album['cover'])
-                                    <img class="rounded-xl hover:brightness-50"
+                                    <img class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 rounded-xl  w-[10.4rem]"
                                         src="{{ asset('storage/cover/' . $album['cover']) }}" alt="">
                                 @else
-                                    <img class="rounded-xl hover:brightness-50"
+                                    <img class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 rounded-xl "
                                         src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
                                         alt="">
                                 @endif
@@ -100,7 +101,7 @@
                     <div>
                         <!-- Modal toggle -->
                         <button
-                            class="block w-32 h-36 text-white bg-slate-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-3xl px-5 py-2.5 text-center"
+                            class="block w-32 h-36 text-white bg-slate-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-3xl px-5 py-2.5 text-center hover:animate-pulse-custom"
                             type="button" data-modal-toggle="authentication-modal">
                             +
                         </button>
@@ -108,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="mt-4">
+            <div class="mt-10">
                 <h1 class="font-bold text-lg">Sedang Diputar</h1>
                 <div class="">
                     <!-- <div data-popover-target="popover-top" data-popover-placement="top"
@@ -223,12 +224,6 @@
         </div>
 
         <!-- <div class="md:col-span-5"></div> -->
-
-
-
-
-
-
         <div class="mt-4">
             <h1 class="font-semibold text-lg">Daftar Lagu</h1>
             <form class="flex items-center w-[30rem] my-3">

@@ -10,6 +10,7 @@ let playMusic = () => {
     play.classList.add(hidden)
     pause.classList.remove(hidden)
     audio.play()
+    // img.classList.add('animate-pulse')
     img.classList.remove('paused')
     img.classList.add('running')
   } else {

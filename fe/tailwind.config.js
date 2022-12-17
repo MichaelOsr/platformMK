@@ -8,8 +8,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        pulsate: {
+          '0%, 100%': {transform: 'scale(1)'},
+          '50%': {transform: 'scale(0.9)'},
+
+        },
+      },
       animation: {
-        'spin-slow': 'spin 10s linear infinite'
+        'spin-slow': 'spin 10s linear infinite',
+        'pulse-custom': 'pulsate 2s ease-in-out infinite both',
       }
     },
   },
