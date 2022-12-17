@@ -272,7 +272,7 @@
     {{-- Modal edit album --}}
     @foreach ($dataAlbum as $data)
         <div id="editAlbumModal{{ $data['nama_album'] }}" tabindex="-1" aria-hidden="true"
-            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full backdrop-blur-sm">
             <div class="relative w-full h-full max-w-2xl md:h-auto">
                 <form id="cover" action="/changeCover/{{ $data['nama_album'] }}" method="POST"
                     enctype="multipart/form-data">
