@@ -43,11 +43,11 @@
                                 onclick="modalroute('{{ $album['nama_album'] }}')"
                                 data-modal-toggle="editAlbumModal{{ $album['nama_album'] }}">
                                 @if ($album['cover'])
-                                    <img class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 rounded-xl  w-[10.4rem]"
+                                    <img class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 rounded-xl  w-[10.4rem] h-[100px]"
                                         src="{{ asset('storage/cover/' . $album['cover']) }}" alt="">
                                 @else
-                                    <img class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 rounded-xl "
-                                        src="https://i.ytimg.com/vi/fKtY_37r1VI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBfZaLFEtxONyLc_BWk_lDzojB9dw"
+                                    <img class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 rounded-xl w-[10.4rem]  h-[100px]"
+                                        src="https://source.unsplash.com/800x600/?music"
                                         alt="">
                                 @endif
                             </button>
@@ -115,9 +115,9 @@
                     <!-- <div data-popover-target="popover-top" data-popover-placement="top"
             class="border shadow rounded-xl w-80 flex flex-col items-center py-4"> -->
                     <div data-popover-target="popover-top" data-popover-placement="top"
-                        class="border shadow rounded-xl w-48 flex flex-col items-center py-4">
+                        class="border shadow rounded-xl w-48 flex flex-col items-center p-4">
 
-                        <h2 id="judul" class="mb-4 font-bold text-xl">All We Know</h2>
+                        <h2 id="judul" class="mb-4 font-bold text-xl text-center">All We Know</h2>
                         <audio id="audio" src="storage/audios/All We Know.mp3">
 
                         </audio>
@@ -251,7 +251,7 @@
                 <div class="border-b-2 flex items-center justify-between p-4 w-[30rem]">
                     <div class="flex items-center justify-start gap-3">
                         <img class="w-16 h-16 rounded-full" src="{{ $lagu['thumbnail'] }}" alt="">
-                        <p class="font-medium">{{ $lagu['lagu'] }}</p>
+                        <p class="font-medium truncate">{{ $lagu['lagu'] }}</p>
                         <p class="font-light">{{ $lagu['artis'] }}</p>
                     </div>
                     <div>

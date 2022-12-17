@@ -41,5 +41,37 @@ class Lagus extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
+        
+        DB::table('lagus')->insert([
+            'lagu' => 'Closer',
+            'artis' => 'The Chainsmokers',
+            'thumbnail' => 'https://i.ytimg.com/vi/PT2_F-1esPk/hqdefault.jpg',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        DB::table('lagus')->insert([
+            'lagu' => 'Humble',
+            'artis' => 'Kendrick Lamar',
+            'thumbnail' => 'https://i.ytimg.com/vi/tvTRZJ-4EyI/0.jpg',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        DB::table('lagus')->insert([
+            'lagu' => 'Gone, Gone, Gone',
+            'artis' => 'Phillip Phillips',
+            'thumbnail' => 'https://i.ytimg.com/vi/oozQ4yV__Vw/0.jpg',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        DB::table('lagus')->insert([
+            'lagu' => 'Something Just Like This',
+            'artis' => 'The Chainsmokers',
+            'thumbnail' => 'https://i.ytimg.com/vi/owTWCbq_nSk/0.jpg',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
     }
 }
